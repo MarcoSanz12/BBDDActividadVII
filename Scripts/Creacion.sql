@@ -20,6 +20,7 @@ CREATE TABLE Pista (
 	idPista INT NOT NULL,
 	idPolideportivo INT NOT NULL,
 	deporte deporte,
+	pistaEstado pistaEstado,
 	precio FLOAT NOT NULL,
 	ultimaReserva DATE,
 	PRIMARY KEY (idPista,idPolideportivo),
@@ -49,10 +50,18 @@ CREATE TABLE reserva (
 	precio FLOAT,
 	idPista INT NOT NULL,
 	idPolideportivo INT NOT NULL,
-	usuarios TEXT [],
 	PRIMARY KEY (id),
-	FOREIGN KEY (idPista,idPolideportivo) REFERENCES Pista(idPista,idPolideportivo),
-	FOREIGN KEY (EACH ELEMENT OF usuarios) REFERENCES Usuario(dni)
+	FOREIGN KEY (idPista,idPolideportivo) REFERENCES Pista(idPista,idPolideportivo)
+
+);
+
+CREATE TABLE usuarioReserva (
+
+	idReserva INT NOT NULL,
+	dni TEXT NOT NULL,
+	PRIMARY KEY (idReserva,dni),
+	FOREIGN KEY (idReserva) REFERENCES Reserva(id),
+	FOREIGN KEY (dni) REFERENCES Usuario(dni)
 
 );
 
